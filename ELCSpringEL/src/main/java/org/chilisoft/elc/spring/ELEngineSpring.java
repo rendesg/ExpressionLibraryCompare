@@ -24,12 +24,15 @@ public class ELEngineSpring implements ELEngine
 		this.context = new StandardEvaluationContext();
 	}
 
-	public void parse(String expression)
+	public Object parse(String expression)
 	{
-		System.out.println("Hey, this is Spring engine!");
-
+		expression = expression.replaceAll("__", "#");
 		Expression expr = parser.parseExpression(expression);
-		System.out.println( expr.getValue(context) );
+
+		Object retval = expr.getValue(context);
+		System.out.println( "Eredmeny: " + retval );
+
+		return retval;
 	}
 
 	public void setVariable(String key, Object value) {
