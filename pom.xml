@@ -11,6 +11,7 @@
     <module>ELCCommon</module>
     <module>ELCSpringEL</module>
     <module>ELCTest</module>
+    <module>ELCJexl</module>
   </modules>
 
   <name>ELCCommon</name>
