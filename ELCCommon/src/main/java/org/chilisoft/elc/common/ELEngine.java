@@ -11,4 +11,9 @@ public interface ELEngine
 	 * @param expression
 	 */
 	public void parse(String expression);
+
+    public void setVariable(String key, Object value);
+
+    public void createNewContext();
+
 }
