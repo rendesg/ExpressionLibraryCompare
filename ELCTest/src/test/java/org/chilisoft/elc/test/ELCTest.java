@@ -15,21 +15,108 @@ public class ELCTest
 	@Autowired
 	private ELEngine elEngine;
 
-	@Test
-	public void addition_1a(){
-		elEngine.setVariable("x", 0.1001);
-		elEngine.setVariable("y", 1);
-		elEngine.parse("__x+__y");
-	}
 
-	@Test
-	public void addition_1b(){
-		elEngine.setVariable("x", -2.0001);
-		elEngine.setVariable("y", 1.0001);
-		elEngine.parse("__x+__y");
-	}
+    @Test
+    public void addition_1a(){
+        elEngine.setVariable("x", 0.1001);
+        elEngine.setVariable("y", 1);
+        Double expected = 1.1001;
+        Double result = (Double)elEngine.parse("__x+__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
 
-	/*
+    @Test
+    public void addition_2a(){
+        elEngine.setVariable("x", -2.0001);
+        elEngine.setVariable("y", 1.0001);
+        Double expected = -1.0000;
+        Double result = (Double)elEngine.parse("__x+__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void addition_3a(){
+        elEngine.setVariable("x", "5.0001");
+        elEngine.setVariable("y", 3);
+        Double expected = 8.0001;
+        Double result = (Double)elEngine.parse("__x+__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void addition_3b(){
+        elEngine.setVariable("x", 2.0022);
+        elEngine.setVariable("y", "1");
+        Double expected = 3.0022;
+        Double result = (Double)elEngine.parse("__x+__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void addition_3c(){
+        elEngine.setVariable("x", "12.0119");
+        elEngine.setVariable("y", "9");
+        Double expected = 21.0119;
+        Double result = (Double)elEngine.parse("__x+__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void substraction_1a(){
+        elEngine.setVariable("x", 1.1002);
+        elEngine.setVariable("y", 1);
+        Double expected =  0.1002;
+        Double result = (Double)elEngine.parse("__x-__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void substraction_2a(){
+        elEngine.setVariable("x", -2.1004);
+        elEngine.setVariable("y", 1.0411);
+        Double expected =  -3.1415;
+        Double result = (Double)elEngine.parse("__x-__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void substraction_3a(){
+        elEngine.setVariable("x", "5.0001");
+        elEngine.setVariable("y", 3);
+        Double expected =  2.0001;
+        Double result = (Double)elEngine.parse("__x-__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void substraction_3b(){
+        elEngine.setVariable("x", 2.0022);
+        elEngine.setVariable("y", "1");
+        Double expected =  1.0022;
+        Double result = (Double)elEngine.parse("__x-__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void substraction_3c(){
+        elEngine.setVariable("x", "12.0119");
+        elEngine.setVariable("y", "9");
+        Double expected =  3.0119;
+        Double result = (Double)elEngine.parse("__x-__y");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    /*
 	 * Szorzas
 	 */
     @Test
