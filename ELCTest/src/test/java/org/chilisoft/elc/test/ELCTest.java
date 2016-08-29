@@ -16,6 +16,8 @@ public class ELCTest
 
 	@Test
 	public void exampleTest() {
-		elEngine.parse("a+b");
+		elEngine.setVariable("a", 1);
+		elEngine.setVariable("b", 2);
+		elEngine.parse("#a + #b");
 	}
 }
