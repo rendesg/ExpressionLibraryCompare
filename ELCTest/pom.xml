@@ -18,6 +18,9 @@
   <profiles>
     <profile>
       <id>spring</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <dependencies>
         <dependency>
           <groupId>org.chilisoft.elc</groupId>
