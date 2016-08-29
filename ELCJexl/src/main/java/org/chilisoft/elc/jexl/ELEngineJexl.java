@@ -19,16 +19,18 @@ public class ELEngineJexl implements ELEngine {
     @PostConstruct
     public void init(){
         engine = new JexlEngine();
+        context = new MapContext();
     }
 
     public void createNewContext(){
         context = new MapContext();
     }
 
-    public void parse(String expression){
+    public Object parse(String expression){
         expression = expression.replaceAll("__","");
         this.expression = engine.createExpression(expression);
-        System.out.println("Eredmeny: " + this.expression.evaluate(context));
+        Object result = this.expression.evaluate(context);
+        return result;
     }
 
     public void setVariable(String key, Object value){
