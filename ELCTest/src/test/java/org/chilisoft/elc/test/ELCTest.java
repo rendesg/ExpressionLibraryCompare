@@ -16,8 +16,9 @@ public class ELCTest
 
 	@Test
 	public void exampleTest() {
-		elEngine.setVariable("a", 1);
-		elEngine.setVariable("b", 2);
-		elEngine.parse("#a + #b");
+		elEngine.createNewContext();
+		elEngine.setVariable("a", 14);
+		elEngine.setVariable("b", "12345678");
+		elEngine.parse("__a+__b");
 	}
 }

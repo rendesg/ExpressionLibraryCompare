@@ -6,10 +6,6 @@ package org.chilisoft.elc.common;
  */
 public interface ELEngine
 {
-	/**
-	 * Parses an expression
-	 * @param expression
-	 */
 	public void parse(String expression);
 
     public void setVariable(String key, Object value);

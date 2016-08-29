@@ -7,18 +7,31 @@ import org.apache.commons.jexl2.MapContext;
 import org.chilisoft.elc.common.ELEngine;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 public class ELEngineJexl implements ELEngine {
+
+    JexlEngine engine;
+    JexlContext context;
+    Expression expression;
+
+    @PostConstruct
+    public void init(){
+        engine = new JexlEngine();
+    }
+
+    public void createNewContext(){
+        context = new MapContext();
+    }
+
     public void parse(String expression){
-        JexlEngine jexl = new JexlEngine();
+        expression = expression.replaceAll("__","");
+        this.expression = engine.createExpression(expression);
+        System.out.println("Eredmeny: " + this.expression.evaluate(context));
+    }
 
-        Expression e = jexl.createExpression( expression );
-
-        JexlContext jc = new MapContext();
-        jc.set("a", 1);
-        jc.set("b", "2");
-
-        Object o = e.evaluate(jc);
-        System.out.println("EREDMENY: " + o);
+    public void setVariable(String key, Object value){
+        context.set(key,value);
     }
 }
