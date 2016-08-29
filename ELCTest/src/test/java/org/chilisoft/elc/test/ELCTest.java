@@ -16,6 +16,7 @@ public class ELCTest
 	private ELEngine elEngine;
 
 
+    //Multiply
     @Test
     public void addition_1a(){
         elEngine.setVariable("x", 0.1001);
@@ -65,6 +66,8 @@ public class ELCTest
         result = (double)Math.round(result * 10000d) / 10000d;
         assertEquals(expected,result);
     }
+
+    //Substraction
 
     @Test
     public void substraction_1a(){
@@ -247,5 +250,54 @@ public class ELCTest
 
         Object retval = elEngine.parse("__x / __y");
         assertEquals(1.9997, retval);
+    }
+
+    //Complex expressions
+    @Test
+    public void complex1(){
+        elEngine.setVariable("a", 1);
+        elEngine.setVariable("b", 2);
+        elEngine.setVariable("c", 3);
+        Double expected =  9.0;
+        Double result = (Double)elEngine.parse("(__a+__b)*__c");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void complex2(){
+        elEngine.setVariable("a", 1);
+        elEngine.setVariable("b", 2);
+        elEngine.setVariable("c", 3);
+        Double expected =  7.0;
+        Double result = (Double)elEngine.parse("__a+__b*__c");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void complex3(){
+        elEngine.setVariable("a", 1);
+        elEngine.setVariable("b", 2);
+        elEngine.setVariable("c", 3);
+        elEngine.setVariable("d", 4);
+        elEngine.setVariable("e", 5);
+        Double expected =  6.2;
+        Double result = (Double)elEngine.parse("__a + __b * __c - __d / __e");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void complex4(){
+        elEngine.setVariable("a", 1);
+        elEngine.setVariable("b", 2);
+        elEngine.setVariable("c", 3);
+        elEngine.setVariable("d", 4);
+        elEngine.setVariable("e", 5);
+        Double expected =  -0.6;
+        Double result = (Double)elEngine.parse("(__a + __b) * (__c - __d) / __e");
+        result = (double)Math.round(result * 10000d) / 10000d;
+        assertEquals(expected,result);
     }
 }
