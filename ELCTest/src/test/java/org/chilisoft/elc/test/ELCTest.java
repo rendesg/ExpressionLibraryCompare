@@ -290,6 +290,141 @@ public class ELCTest
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
+    /*
+     * Logical Equal - with numbers
+     */
+
+    @Test
+    public void logicalEqual_1a() {
+        elEngine.setVariable("x", 1.0001);
+        elEngine.setVariable("y", 1);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqual_1b() {
+        elEngine.setVariable("x", 3.1101);
+        elEngine.setVariable("y", 3.1101);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqual_2a() {
+        elEngine.setVariable("x", -2.1004);
+        elEngine.setVariable("y", 2.1004);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqual_2b() {
+        elEngine.setVariable("x", -1.1404);
+        elEngine.setVariable("y", -1.1404);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqual_3a() {
+        elEngine.setVariable("x", "5.0001");
+        elEngine.setVariable("y", 5);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqual_3b() {
+        elEngine.setVariable("x", 2.0022);
+        elEngine.setVariable("y", "2.0022");
+
+        Object retval = elEngine.parse("__x == __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqual_3c() {
+        elEngine.setVariable("x", "2.0022");
+        elEngine.setVariable("y", "2.0022");
+
+        Object retval = elEngine.parse("__x == __y");
+        assertTrue((Boolean) retval);
+    }
+
+    /*
+     * Logical Not equal - with numbers
+     */
+
+    @Test
+    public void logicalNotEqual_1a() {
+        elEngine.setVariable("x", 1.0001);
+        elEngine.setVariable("y", 1);
+
+        Object retval = elEngine.parse("__x != __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqual_1b() {
+        elEngine.setVariable("x", 3.1101);
+        elEngine.setVariable("y", 3.1101);
+
+        Object retval = elEngine.parse("__x != __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqual_2a() {
+        elEngine.setVariable("x", -2.1004);
+        elEngine.setVariable("y", 2.1004);
+
+        Object retval = elEngine.parse("__x != __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqual_2b() {
+        elEngine.setVariable("x", -1.1404);
+        elEngine.setVariable("y", -1.1404);
+
+        Object retval = elEngine.parse("__x != __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqual_3a() {
+        elEngine.setVariable("x", "5.0001");
+        elEngine.setVariable("y", 5);
+
+        Object retval = elEngine.parse("__x != __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqual_3b() {
+        elEngine.setVariable("x", 2.0022);
+        elEngine.setVariable("y", "2.0022");
+
+        Object retval = elEngine.parse("__x != __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqual_3c() {
+        elEngine.setVariable("x", "2.0022");
+        elEngine.setVariable("y", "2.0022");
+
+        Object retval = elEngine.parse("__x != __y");
+        assertFalse((Boolean) retval);
+    }
+
+
     //Logical - less
 
     @Test
@@ -581,4 +716,236 @@ public class ELCTest
         Object result = elEngine.parse("__x>=__y");
         assertEquals(expected ,result);
     }
+
+    /*
+     * Logical Equal - with strings
+     */
+
+    @Test
+    public void logicalEqualString_1a() {
+        elEngine.setVariable("x", "alma");
+        elEngine.setVariable("y", "alma");
+
+        Object retval = elEngine.parse("__x == __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqualString_1b() {
+        elEngine.setVariable("x", "körte");
+        elEngine.setVariable("y", "alma");
+
+        Object retval = elEngine.parse("__x == __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqualString_2a() {
+        elEngine.setVariable("x", 2.0022);
+        elEngine.setVariable("y", "2.0022");
+
+        Object retval = elEngine.parse("__x == __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqualString_2b() {
+        elEngine.setVariable("x", 2.0022);
+        elEngine.setVariable("y", "2.0023");
+
+        Object retval = elEngine.parse("__x == __y");
+        assertEquals(false, retval);
+    }
+
+    @Test
+    public void logicalEqualString_3a() {
+        elEngine.setVariable("x", "2.0022");
+        elEngine.setVariable("y", true);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqualString_3b() {
+        elEngine.setVariable("x", "false");
+        elEngine.setVariable("y", false);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertTrue((Boolean) retval);
+    }
+
+    /*
+     * Logical Not equal - with strings
+     */
+
+    @Test
+    public void logicalNotEqualString_1a() {
+        elEngine.setVariable("x", "alma");
+        elEngine.setVariable("y", "alma");
+
+        Object retval = elEngine.parse("__x != __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqualString_1b() {
+        elEngine.setVariable("x", "körte");
+        elEngine.setVariable("y", "alma");
+
+        Object retval = elEngine.parse("__x != __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqualString_2a() {
+        elEngine.setVariable("x", 1.0001);
+        elEngine.setVariable("y", "alma");
+
+        Object retval = elEngine.parse("__x != __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqualString_3a() {
+        elEngine.setVariable("x", "alma");
+        elEngine.setVariable("y", true);
+
+        Object retval = elEngine.parse("__x != __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqualString_3b() {
+        elEngine.setVariable("x", true);
+        elEngine.setVariable("y", "true");
+
+        Object retval = elEngine.parse("__x != __y");
+        assertFalse((Boolean) retval);
+    }
+
+    /*
+     * Logical Equal - with boolean values
+     */
+
+    @Test
+    public void logicalEqualBooelan_1a() {
+        elEngine.setVariable("x", true);
+        elEngine.setVariable("y", false);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalEqualBooelan_1b() {
+        elEngine.setVariable("x", false);
+        elEngine.setVariable("y", false);
+
+        Object retval = elEngine.parse("__x == __y");
+        assertTrue((Boolean) retval);
+    }
+
+    /*
+     * Logical Not equal - with boolean values
+     */
+
+    @Test
+    public void logicalNotEqualBoolean_1a() {
+        elEngine.setVariable("x", true);
+        elEngine.setVariable("y", false);
+
+        Object retval = elEngine.parse("__x != __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotEqualBoolean_1b() {
+        elEngine.setVariable("x", false);
+        elEngine.setVariable("y", false);
+
+        Object retval = elEngine.parse("__x != __y");
+        assertFalse((Boolean) retval);
+    }
+
+    /*
+     * Logical And - with boolean values
+     */
+
+    @Test
+    public void logicalAndBoolean_1a() {
+        elEngine.setVariable("x", true);
+        elEngine.setVariable("y", false);
+
+        Object retval = elEngine.parse("__x && __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalAndBoolean_1b() {
+        elEngine.setVariable("x", false);
+        elEngine.setVariable("y", true);
+
+        Object retval = elEngine.parse("__x && __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalAndBoolean_1c() {
+        elEngine.setVariable("x", true);
+        elEngine.setVariable("y", true);
+
+        Object retval = elEngine.parse("__x && __y");
+        assertTrue((Boolean) retval);
+    }
+
+    /*
+     * Logical Or - with boolean values
+     */
+
+    @Test
+    public void logicalOrBoolean_1a() {
+        elEngine.setVariable("x", true);
+        elEngine.setVariable("y", false);
+
+        Object retval = elEngine.parse("__x || __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalOrBoolean_1b() {
+        elEngine.setVariable("x", false);
+        elEngine.setVariable("y", false);
+
+        Object retval = elEngine.parse("__x || __y");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalOrBoolean_1c() {
+        elEngine.setVariable("x", true);
+        elEngine.setVariable("y", true);
+
+        Object retval = elEngine.parse("__x || __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalOrBoolean_2a() {
+        elEngine.setVariable("x", true);
+        elEngine.setVariable("y", null);
+
+        Object retval = elEngine.parse("__x || __y");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalOrBoolean_2b() {
+        elEngine.setVariable("x", null);
+        elEngine.setVariable("y", true);
+
+        Object retval = elEngine.parse("__x || __y");
+        assertTrue((Boolean) retval);
+    }
+
 }
