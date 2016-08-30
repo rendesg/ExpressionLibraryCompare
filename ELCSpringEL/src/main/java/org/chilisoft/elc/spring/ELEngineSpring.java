@@ -30,7 +30,7 @@ public class ELEngineSpring implements ELEngine
 		Expression expr = parser.parseExpression(expression);
 
 		Object retval = expr.getValue(context);
-		System.out.println( "Eredmeny: " + retval );
+		//System.out.println( "Eredmeny: " + retval );
 
 		return retval;
 	}

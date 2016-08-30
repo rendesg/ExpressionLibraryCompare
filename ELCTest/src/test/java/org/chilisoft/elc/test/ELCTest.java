@@ -948,4 +948,80 @@ public class ELCTest
         assertTrue((Boolean) retval);
     }
 
+    /*
+     * Logical Not - with boolean values
+     */
+
+    @Test
+    public void logicalNotBoolean_1a() {
+        elEngine.setVariable("x", true);
+
+        Object retval = elEngine.parse("!__x");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalNotBoolean_1b() {
+        elEngine.setVariable("x", false);
+
+        Object retval = elEngine.parse("!__x");
+        assertTrue((Boolean) retval);
+    }
+
+    /*
+     * Complex logical expressions
+     */
+
+    @Test
+    public void logicalComplex_1() {
+        elEngine.setVariable("a", true);
+        elEngine.setVariable("b", false);
+        elEngine.setVariable("c", true);
+
+        Object retval = elEngine.parse("(__a || __b) && __c");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalComplex_2() {
+        elEngine.setVariable("a", true);
+        elEngine.setVariable("b", false);
+        elEngine.setVariable("c", true);
+
+        Object retval = elEngine.parse("!(__a || __b) && __c");
+        assertFalse((Boolean) retval);
+    }
+
+    @Test
+    public void logicalComplex_3() {
+        elEngine.setVariable("a", true);
+        elEngine.setVariable("b", true);
+        elEngine.setVariable("c", true);
+
+        Object retval = elEngine.parse("!__a || __b && __c");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalComplex_4() {
+        elEngine.setVariable("a", true);
+        elEngine.setVariable("b", false);
+        elEngine.setVariable("c", false);
+        elEngine.setVariable("d", true);
+
+        Object retval = elEngine.parse("__a && (__b == __c) && __d");
+        assertTrue((Boolean) retval);
+    }
+
+    @Test
+    public void logicalComplex_5() {
+        elEngine.setVariable("a", true);
+        elEngine.setVariable("b", false);
+        elEngine.setVariable("c", false);
+        elEngine.setVariable("d", true);
+        elEngine.setVariable("e", false);
+
+        Object retval = elEngine.parse("!__a || __b && __c != __d || __e");
+        assertTrue((Boolean) retval);
+    }
 }
