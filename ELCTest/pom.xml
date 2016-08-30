@@ -41,6 +41,17 @@
       </dependencies>
     </profile>
 
+    <profile>
+      <id>rhino</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.chilisoft.elc</groupId>
+          <artifactId>ELCRhino</artifactId>
+          <version>1.0-SNAPSHOT</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
   </profiles>
 
   <dependencies>

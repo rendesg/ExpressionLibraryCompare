@@ -12,6 +12,7 @@
     <module>ELCSpringEL</module>
     <module>ELCTest</module>
     <module>ELCJexl</module>
+    <module>ELCRhino</module>
   </modules>
 
   <name>ELCCommon</name>
