@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static org.junit.Assert.*;
 
@@ -1042,6 +1043,13 @@ public class ELCTest
     @Test
     public void variablesSet() {
         Set a = elEngine.getVariablesSet("__a + __b / c * d - e");
-        System.out.println(a.toArray().toString());
+        Set expected = new TreeSet<String>();
+        expected.add("a");
+        expected.add("b");
+        expected.add("c");
+        expected.add("d");
+        expected.add("e");
+
+        assertEquals(a, expected);
     }
 }
