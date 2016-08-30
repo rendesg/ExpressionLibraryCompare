@@ -6,8 +6,10 @@ import org.apache.commons.jexl2.JexlEngine;
 import org.apache.commons.jexl2.MapContext;
 import org.chilisoft.elc.common.ELEngine;
 import org.springframework.stereotype.Component;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.PostConstruct;
+import java.util.Set;
 
 @Component
 public class ELEngineJexl implements ELEngine {
@@ -35,5 +37,9 @@ public class ELEngineJexl implements ELEngine {
 
     public void setVariable(String key, Object value){
         context.set(key,value);
+    }
+
+    public Set<String> getVariablesSet(String expression) {
+        throw new NotImplementedException();
     }
 }

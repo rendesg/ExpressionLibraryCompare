@@ -6,8 +6,10 @@ import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.PostConstruct;
+import java.util.Set;
 
 /**
  * Created by rendesg on 2016.08.29.
@@ -41,5 +43,9 @@ public class ELEngineSpring implements ELEngine
 
 	public void createNewContext() {
 		this.context = new StandardEvaluationContext();
+	}
+
+	public Set<String> getVariablesSet(String expression) {
+		throw new NotImplementedException();
 	}
 }

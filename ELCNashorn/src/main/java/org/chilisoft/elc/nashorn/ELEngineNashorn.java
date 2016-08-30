@@ -1,12 +1,17 @@
 package org.chilisoft.elc.nashorn;
 
+import jdk.nashorn.internal.ir.*;
+import jdk.nashorn.internal.parser.Parser;
+import jdk.nashorn.internal.runtime.Context;
+import jdk.nashorn.internal.runtime.ErrorManager;
+import jdk.nashorn.internal.runtime.Source;
+import jdk.nashorn.internal.runtime.options.Options;
 import org.chilisoft.elc.common.ELEngine;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.script.*;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by TothPeter on 2016. 08. 30..
@@ -48,4 +53,33 @@ public class ELEngineNashorn implements ELEngine {
         this.context = new SimpleScriptContext();
 
     }
+
+    public Set<String> getVariablesSet(String expression) {
+        expression = expression.replaceAll("__", "");
+
+        Set<String> retval = new TreeSet<>();
+
+        Options options = new Options("nashorn");
+        ErrorManager errors = new ErrorManager();
+        Context context = new Context(options, errors, Thread.currentThread().getContextClassLoader());
+        Source source = Source.sourceFor("foo", expression);
+        Parser parser = new Parser(context.getEnv(), source, errors);
+
+        List<Statement> statements = parser.parse().getBody().getStatements();
+        for (Statement statement : statements) {
+            _dig(((ExpressionStatement)statement).getExpression(), retval);
+        }
+
+        return retval;
+    }
+
+    private void _dig(Expression expression, Set<String> variables) {
+        if (expression instanceof BinaryNode) {
+            _dig(((BinaryNode)expression).lhs(), variables);
+            _dig(((BinaryNode)expression).rhs(), variables);
+        } else if (expression instanceof IdentNode) {
+            variables.add(((IdentNode)expression).getName());
+        }
+    }
+
 }
