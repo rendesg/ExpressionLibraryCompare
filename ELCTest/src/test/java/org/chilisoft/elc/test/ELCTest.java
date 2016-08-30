@@ -475,7 +475,7 @@ public class ELCTest
 
     @Test
     public void logicalLess_3a(){
-        elEngine.setVariable("x", "5.0001"); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("x", "5.0001"); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba JEXL
         elEngine.setVariable("y", 5);
         Boolean expected =  false;
         Object result = elEngine.parse("__x<__y");
@@ -484,7 +484,7 @@ public class ELCTest
 
     @Test
     public void logicalLess_3b(){
-        elEngine.setVariable("x", 2.0021); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("x", 2.0021); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba JEXL
         elEngine.setVariable("y", "2.0022");
         Boolean expected =  true;
         Object result = elEngine.parse("__x<__y");
@@ -556,7 +556,7 @@ public class ELCTest
     }
 
     @Test
-    public void logicalLessOrEqual_3a(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+    public void logicalLessOrEqual_3a(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba JEXL
         elEngine.setVariable("x", "5.0001");
         elEngine.setVariable("y", 5);
         Boolean expected =  false;
@@ -565,7 +565,7 @@ public class ELCTest
     }
 
     @Test
-    public void logicalLessOrEqual_3b(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+    public void logicalLessOrEqual_3b(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba JEXL
         elEngine.setVariable("x",  2.0022);
         elEngine.setVariable("y",  "2.0022");
         Boolean expected =  true;
@@ -622,7 +622,7 @@ public class ELCTest
 
     @Test
     public void logicalGreater_3a(){
-        elEngine.setVariable("x", "5.0001"); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("x", "5.0001"); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba JEXL
         elEngine.setVariable("y", 5);
         Boolean expected =  true;
         Object result = elEngine.parse("__x>__y");
@@ -631,7 +631,7 @@ public class ELCTest
 
     @Test
     public void logicalGreater_3b(){
-        elEngine.setVariable("x", 2.0021); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("x", 2.0021); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba JEXL
         elEngine.setVariable("y", "2.0022");
         Boolean expected =  false;
         Object result = elEngine.parse("__x>__y");
@@ -702,7 +702,7 @@ public class ELCTest
     }
 
     @Test
-    public void logicalGreaterOrEqual_3a(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+    public void logicalGreaterOrEqual_3a(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba JEXL
         elEngine.setVariable("x", "5.0001");
         elEngine.setVariable("y", 5);
         Boolean expected =  true;
@@ -711,7 +711,7 @@ public class ELCTest
     }
 
     @Test
-    public void logicalGreaterOrEqual_3b(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+    public void logicalGreaterOrEqual_3b(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba JEXL
         elEngine.setVariable("x",  2.0022);
         elEngine.setVariable("y",  "2.0022");
         Boolean expected =  true;
@@ -770,7 +770,7 @@ public class ELCTest
 
     @Test
     public void logicalEqualString_3a() {
-        elEngine.setVariable("x", "2.0022");
+        elEngine.setVariable("x", "alma");
         elEngine.setVariable("y", true);
 
         Object retval = elEngine.parse("__x == __y");
