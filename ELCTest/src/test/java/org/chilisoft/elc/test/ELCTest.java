@@ -289,4 +289,296 @@ public class ELCTest
         Object result = elEngine.parse("(__a + __b) * (__c - __d) / __e");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
+
+    //Logical - less
+
+    @Test
+    public void logicalLess_1a(){
+        elEngine.setVariable("x", 1.0001);
+        elEngine.setVariable("y", 1);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x<__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLess_1b(){
+        elEngine.setVariable("x", 3.1100);
+        elEngine.setVariable("y", 3.1101);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLess_2a(){
+        elEngine.setVariable("x", -2.1004);
+        elEngine.setVariable("y", 2.1004);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLess_2b(){
+        elEngine.setVariable("x", -0.1405);
+        elEngine.setVariable("y", -1.1404);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x<__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLess_3a(){
+        elEngine.setVariable("x", "5.0001"); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("y", 5);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x<__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLess_3b(){
+        elEngine.setVariable("x", 2.0021); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("y", "2.0022");
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<__y");
+        assertEquals(expected ,result);
+    }
+    @Test
+    public void logicalLess_3c(){
+        elEngine.setVariable("x", "2.0021");
+        elEngine.setVariable("y", "2.0022");
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<__y");
+        assertEquals(expected ,result);
+    }
+
+    //Logical - less or equal
+    @Test
+    public void logicalLessOrEqual_1a(){
+        elEngine.setVariable("x", 1.0001);
+        elEngine.setVariable("y", 1);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLessOrEqual_1b(){
+        elEngine.setVariable("x", 3.1101);
+        elEngine.setVariable("y", 3.1101);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLessOrEqual_1c(){
+        elEngine.setVariable("x", 3.1100);
+        elEngine.setVariable("y", 3.1101);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLessOrEqual_2a(){
+        elEngine.setVariable("x", -2.1004);
+        elEngine.setVariable("y", 2.1004);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLessOrEqual_2b(){
+        elEngine.setVariable("x", -1.1404);
+        elEngine.setVariable("y", -1.1404);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLessOrEqual_2c(){
+        elEngine.setVariable("x", -1.1403);
+        elEngine.setVariable("y", -1.1404);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLessOrEqual_3a(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("x", "5.0001");
+        elEngine.setVariable("y", 5);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLessOrEqual_3b(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("x",  2.0022);
+        elEngine.setVariable("y",  "2.0022");
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalLessOrEqual_3c(){
+        elEngine.setVariable("x",  "2.0022");
+        elEngine.setVariable("y",  "2.0023");
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x<=__y");
+        assertEquals(expected ,result);
+    }
+
+    //Logical - greater
+
+    @Test
+    public void logicalGreater_1a(){
+        elEngine.setVariable("x", 1.0001);
+        elEngine.setVariable("y", 1);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreater_1b(){
+        elEngine.setVariable("x", 3.1100);
+        elEngine.setVariable("y", 3.1101);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x>__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreater_2a(){
+        elEngine.setVariable("x", -2.1004);
+        elEngine.setVariable("y", 2.1004);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x>__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreater_2b(){
+        elEngine.setVariable("x", -0.1405);
+        elEngine.setVariable("y", -1.1404);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreater_3a(){
+        elEngine.setVariable("x", "5.0001"); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("y", 5);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreater_3b(){
+        elEngine.setVariable("x", 2.0021); //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("y", "2.0022");
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x>__y");
+        assertEquals(expected ,result);
+    }
+    @Test
+    public void logicalGreater_3c(){
+        elEngine.setVariable("x", "2.0021");
+        elEngine.setVariable("y", "2.0022");
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x>__y");
+        assertEquals(expected ,result);
+    }
+
+    //Logical - greater or equal
+    @Test
+    public void logicalGreaterOrEqual_1a(){
+        elEngine.setVariable("x", 1.0001);
+        elEngine.setVariable("y", 1);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreaterOrEqual_1b(){
+        elEngine.setVariable("x", 3.1101);
+        elEngine.setVariable("y", 3.1101);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreaterOrEqual_1c(){
+        elEngine.setVariable("x", 3.1100);
+        elEngine.setVariable("y", 3.1101);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreaterOrEqual_2a(){
+        elEngine.setVariable("x", -2.1004);
+        elEngine.setVariable("y", 2.1004);
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreaterOrEqual_2b(){
+        elEngine.setVariable("x", -1.1404);
+        elEngine.setVariable("y", -1.1404);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreaterOrEqual_2c(){
+        elEngine.setVariable("x", -1.1403);
+        elEngine.setVariable("y", -1.1404);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreaterOrEqual_3a(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("x", "5.0001");
+        elEngine.setVariable("y", 5);
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreaterOrEqual_3b(){ //Ha X és Y azonos típusú akkor működik double - double, int - int, egyébként hiba
+        elEngine.setVariable("x",  2.0022);
+        elEngine.setVariable("y",  "2.0022");
+        Boolean expected =  true;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
+
+    @Test
+    public void logicalGreaterOrEqual_3c(){
+        elEngine.setVariable("x",  "2.0022");
+        elEngine.setVariable("y",  "2.0023");
+        Boolean expected =  false;
+        Object result = elEngine.parse("__x>=__y");
+        assertEquals(expected ,result);
+    }
 }
