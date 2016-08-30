@@ -1,6 +1,7 @@
 package org.chilisoft.elc.test;
 
 import org.chilisoft.elc.common.ELEngine;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,11 @@ public class ELCTest
 	private ELEngine elEngine;
 
     private static final double delta = 0.00005;
+
+    @Before
+    public void before() {
+        elEngine.createNewContext();
+    }
 
     //Multiply
     @Test
@@ -480,6 +486,7 @@ public class ELCTest
         Object result = elEngine.parse("__x<__y");
         assertEquals(expected ,result);
     }
+
     @Test
     public void logicalLess_3c(){
         elEngine.setVariable("x", "2.0021");
@@ -1022,6 +1029,6 @@ public class ELCTest
         elEngine.setVariable("e", false);
 
         Object retval = elEngine.parse("!__a || __b && __c != __d || __e");
-        assertTrue((Boolean) retval);
+        assertFalse((Boolean) retval);
     }
 }

@@ -52,6 +52,17 @@
       </dependencies>
     </profile>
 
+    <profile>
+      <id>nashorn</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.chilisoft.elc</groupId>
+          <artifactId>ELCNashorn</artifactId>
+          <version>1.0-SNAPSHOT</version>
+        </dependency>
+      </dependencies>
+    </profile>
+
   </profiles>
 
   <dependencies>
