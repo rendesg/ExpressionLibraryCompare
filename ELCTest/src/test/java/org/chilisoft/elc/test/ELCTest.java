@@ -23,9 +23,8 @@ public class ELCTest
         elEngine.setVariable("x", 0.1001);
         elEngine.setVariable("y", 1);
         Double expected = 1.1001;
-        Double result = (Double)elEngine.parse("__x+__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x+__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -33,9 +32,8 @@ public class ELCTest
         elEngine.setVariable("x", -2.0001);
         elEngine.setVariable("y", 1.0001);
         Double expected = -1.0000;
-        Double result = (Double)elEngine.parse("__x+__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x+__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -43,9 +41,8 @@ public class ELCTest
         elEngine.setVariable("x", "5.0001");
         elEngine.setVariable("y", 3);
         Double expected = 8.0001;
-        Double result = (Double)elEngine.parse("__x+__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x+__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -53,9 +50,8 @@ public class ELCTest
         elEngine.setVariable("x", 2.0022);
         elEngine.setVariable("y", "1");
         Double expected = 3.0022;
-        Double result = (Double)elEngine.parse("__x+__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x+__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -63,9 +59,8 @@ public class ELCTest
         elEngine.setVariable("x", "12.0119");
         elEngine.setVariable("y", "9");
         Double expected = 21.0119;
-        Double result = (Double)elEngine.parse("__x+__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x+__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     //Substraction
@@ -75,9 +70,8 @@ public class ELCTest
         elEngine.setVariable("x", 1.1002);
         elEngine.setVariable("y", 1);
         Double expected =  0.1002;
-        Double result = (Double)elEngine.parse("__x-__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x-__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -85,9 +79,8 @@ public class ELCTest
         elEngine.setVariable("x", -2.1004);
         elEngine.setVariable("y", 1.0411);
         Double expected =  -3.1415;
-        Double result = (Double)elEngine.parse("__x-__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x-__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -95,9 +88,8 @@ public class ELCTest
         elEngine.setVariable("x", "5.0001");
         elEngine.setVariable("y", 3);
         Double expected =  2.0001;
-        Double result = (Double)elEngine.parse("__x-__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x-__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -105,9 +97,8 @@ public class ELCTest
         elEngine.setVariable("x", 2.0022);
         elEngine.setVariable("y", "1");
         Double expected =  1.0022;
-        Double result = (Double)elEngine.parse("__x-__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = (Double)elEngine.parse("__x-__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -115,9 +106,8 @@ public class ELCTest
         elEngine.setVariable("x", "12.0119");
         elEngine.setVariable("y", "9");
         Double expected =  3.0119;
-        Double result = (Double)elEngine.parse("__x-__y");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__x-__y");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     /*
@@ -261,20 +251,10 @@ public class ELCTest
         elEngine.setVariable("b", 2);
         elEngine.setVariable("c", 3);
         Double expected =  9.0;
-        Double result = (Double)elEngine.parse("(__a+__b)*__c");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
-    }
-
-    @Test
-    public void complex1_byPeti(){
-        elEngine.setVariable("a", 1);
-        elEngine.setVariable("b", 2);
-        elEngine.setVariable("c", 3);
-        Double expected =  9.0;
         Object result = elEngine.parse("(__a+__b)*__c");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
+
 
     @Test
     public void complex2(){
@@ -282,9 +262,8 @@ public class ELCTest
         elEngine.setVariable("b", 2.0);
         elEngine.setVariable("c", 3.0);
         Double expected =  7.0;
-        Double result = (Double)elEngine.parse("__a+__b*__c");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__a+__b*__c");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -295,9 +274,8 @@ public class ELCTest
         elEngine.setVariable("d", 4.0);
         elEngine.setVariable("e", 5.0);
         Double expected =  6.2;
-        Double result = (Double)elEngine.parse("__a + __b * __c - __d / __e");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("__a + __b * __c - __d / __e");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
     @Test
@@ -308,8 +286,7 @@ public class ELCTest
         elEngine.setVariable("d", 4.0);
         elEngine.setVariable("e", 5.0);
         Double expected =  -0.6;
-        Double result = (Double)elEngine.parse("(__a + __b) * (__c - __d) / __e");
-        result = (double)Math.round(result * 10000d) / 10000d;
-        assertEquals(expected,result);
+        Object result = elEngine.parse("(__a + __b) * (__c - __d) / __e");
+        assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 }
