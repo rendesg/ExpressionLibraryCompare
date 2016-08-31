@@ -18,9 +18,6 @@
   <profiles>
     <profile>
       <id>spring</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
       <dependencies>
         <dependency>
           <groupId>org.chilisoft.elc</groupId>
@@ -43,6 +40,9 @@
 
     <profile>
       <id>rhino</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <dependencies>
         <dependency>
           <groupId>org.chilisoft.elc</groupId>
@@ -62,7 +62,6 @@
         </dependency>
       </dependencies>
     </profile>
-
   </profiles>
 
   <dependencies>

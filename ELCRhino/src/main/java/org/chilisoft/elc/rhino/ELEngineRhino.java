@@ -23,8 +23,8 @@ public class ELEngineRhino implements ELEngine {
     @PostConstruct
     public void init(){
         context = Context.enter();
-        scope = context.initStandardObjects();
-        context.setLanguageVersion(Context.VERSION_1_8);
+        scope = context.initStandardObjects(null);
+        context.setLanguageVersion(Context.VERSION_1_2);
     }
 
     @Override
