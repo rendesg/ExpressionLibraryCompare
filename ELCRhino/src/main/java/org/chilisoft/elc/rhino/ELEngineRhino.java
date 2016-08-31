@@ -31,6 +31,10 @@ public class ELEngineRhino implements ELEngine {
     public Object parse(String expression) {
         Object result = null;
         expression = expression.replaceAll("__", "");
+        expression = "function add(a, b) { return +a + +b; };" +
+                "function equals(a, b) { return a.toString() == b.toString();};" +
+                expression;
+
         result = context.evaluateString(scope, expression, "<cmd>", 1, null);
         context.exit();
         return result;

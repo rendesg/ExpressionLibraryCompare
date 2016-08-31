@@ -33,6 +33,10 @@ public class ELEngineNashorn implements ELEngine {
     public Object parse(String expression) {
         expression = expression.replaceAll("__", "");
 
+        expression = "function add(a, b) { return +a + +b; };" +
+                "function equals(a, b) { return a.toString() == b.toString();};" +
+                expression;
+
         Object retval = null;
 
         try {
@@ -63,6 +67,7 @@ public class ELEngineNashorn implements ELEngine {
         ErrorManager errors = new ErrorManager();
         Context context = new Context(options, errors, Thread.currentThread().getContextClassLoader());
         Source source = Source.sourceFor("foo", expression);
+
         Parser parser = new Parser(context.getEnv(), source, errors);
 
         List<Statement> statements = parser.parse().getBody().getStatements();
