@@ -50,6 +50,7 @@ public class ELEngineRhino implements ELEngine {
 
     @Override
     public Set<String> getVariablesSet(String expression) {
+        expression = expression.replaceAll("__", "");
         Set<String> variables = new TreeSet<String>();
         AstNode node = new Parser().parse(expression, "<cmd>", 1);
         NodeVisitor nv = new NodeVisitor() {

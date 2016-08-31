@@ -1042,7 +1042,7 @@ public class ELCTest
      */
     @Test
     public void variablesSet() {
-        Set a = elEngine.getVariablesSet("__a + __b / c * d - e");
+        Set a = elEngine.getVariablesSet("__a + __b / __c * __d - __e");
         Set expected = new TreeSet<String>();
         expected.add("a");
         expected.add("b");
