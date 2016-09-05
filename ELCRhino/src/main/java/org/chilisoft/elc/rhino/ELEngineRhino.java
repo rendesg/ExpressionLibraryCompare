@@ -23,8 +23,8 @@ public class ELEngineRhino implements ELEngine {
     @PostConstruct
     public void init(){
         context = Context.enter();
+        context.setLanguageVersion(Context.VERSION_1_8);
         scope = context.initStandardObjects(null);
-        context.setLanguageVersion(Context.VERSION_1_2);
     }
 
     @Override
@@ -36,7 +36,8 @@ public class ELEngineRhino implements ELEngine {
                 expression;
 
         result = context.evaluateString(scope, expression, "<cmd>", 1, null);
-        context.exit();
+        Context.exit();
+        context = Context.enter();
         return result;
     }
 

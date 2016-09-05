@@ -2,18 +2,12 @@ package org.chilisoft.elc.test;
 
 import org.chilisoft.elc.common.ELEngine;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -506,6 +500,7 @@ public class ELCTest
     @Test
     public void logicalLess_3a(){
         elEngine.setVariable("x", "5.0001");
+        elEngine.setVariable("y", 5);
         Boolean expected =  false;
         Object result = elEngine.parse("__x<__y");
         assertEquals(expected ,result);

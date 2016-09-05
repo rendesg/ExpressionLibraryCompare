@@ -1,6 +1,7 @@
 package org.chilisoft.elc.spring;
 
 import org.chilisoft.elc.common.ELEngine;
+import org.junit.Test;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -9,14 +10,14 @@ import org.springframework.stereotype.Component;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.annotation.PostConstruct;
+import java.util.Random;
 import java.util.Set;
 
 /**
  * Created by rendesg on 2016.08.29.
  */
 @Component
-public class ELEngineSpring implements ELEngine
-{
+public class ELEngineSpring implements ELEngine {
 	private ExpressionParser parser;
 	private StandardEvaluationContext context;
 
@@ -26,8 +27,7 @@ public class ELEngineSpring implements ELEngine
 		this.context = new StandardEvaluationContext();
 	}
 
-	public Object parse(String expression)
-	{
+	public Object parse(String expression) {
 		expression = expression.replaceAll("__", "#");
 		Expression expr = parser.parseExpression(expression);
 
