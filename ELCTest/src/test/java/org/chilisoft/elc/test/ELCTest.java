@@ -51,7 +51,7 @@ public class ELCTest
         elEngine.setVariable("x", "5.0001");
         elEngine.setVariable("y", 3);
         Double expected = 8.0001;
-        Object result = elEngine.parse("add(__x, __y)");
+        Object result = elEngine.parse("__x + __y");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
@@ -60,7 +60,7 @@ public class ELCTest
         elEngine.setVariable("x", 2.0022);
         elEngine.setVariable("y", "1");
         Double expected = 3.0022;
-        Object result = elEngine.parse("add(__x, __y)");
+        Object result = elEngine.parse("__x + __y");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
@@ -69,7 +69,7 @@ public class ELCTest
         elEngine.setVariable("x", "12.0119");
         elEngine.setVariable("y", "9");
         Double expected = 21.0119;
-        Object result = elEngine.parse("add(__x, __y)");
+        Object result = elEngine.parse("__x + __y");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
@@ -308,7 +308,7 @@ public class ELCTest
         elEngine.setVariable("d", 4.0);
         Double expected = 11.0;
         // a*b+c+d
-        Object result = elEngine.parse("add(add(__a * __b, __c), __d)");
+        Object result = elEngine.parse("a*b+c+d");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
@@ -320,7 +320,7 @@ public class ELCTest
         elEngine.setVariable("d", "4.0");
         Double expected = 20.0;
         // a*(3+b+c)+d
-        Object result = elEngine.parse("add(__a * add(add(3,__b), __c), __d)");
+        Object result = elEngine.parse("a*(3+b+c)+d");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
@@ -797,7 +797,7 @@ public class ELCTest
         elEngine.setVariable("x", "alma");
         elEngine.setVariable("y", true);
 
-        Object retval = elEngine.parse("equals(__x, __y)");
+        Object retval = elEngine.parse("__x == __y)");
         assertFalse((Boolean) retval);
     }
 
@@ -806,7 +806,7 @@ public class ELCTest
         elEngine.setVariable("x", "false");
         elEngine.setVariable("y", false);
 
-        Object retval = elEngine.parse("equals(__x, __y)");
+        Object retval = elEngine.parse("__x == __y");
         assertTrue((Boolean) retval);
     }
 
@@ -846,7 +846,7 @@ public class ELCTest
         elEngine.setVariable("x", "alma");
         elEngine.setVariable("y", true);
 
-        Object retval = elEngine.parse("!equals(__x, __y)");
+        Object retval = elEngine.parse("__x != __y");
         assertTrue((Boolean) retval);
     }
 
@@ -855,7 +855,7 @@ public class ELCTest
         elEngine.setVariable("x", true);
         elEngine.setVariable("y", "true");
 
-        Object retval = elEngine.parse("!equals(__x, __y)");
+        Object retval = elEngine.parse("__x != __y");
         assertFalse((Boolean) retval);
     }
 

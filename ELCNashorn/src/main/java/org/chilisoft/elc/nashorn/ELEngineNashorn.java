@@ -22,20 +22,27 @@ public class ELEngineNashorn implements ELEngine {
     private ScriptEngine engine;
     private SimpleScriptContext context;
 
+    private MyNode nodeTree;
+    private Set<String> variableSet;
 
     @PostConstruct
     public void init() {
         this.engine = new ScriptEngineManager().getEngineByName("nashorn");
-        this.context = new SimpleScriptContext();
 
+        this.createNewContext();
+
+        this.nodeTree = new MyNode();
+        this.variableSet = new TreeSet<>();
     }
 
     public Object parse(String expression) {
         expression = expression.replaceAll("__", "");
 
+        getVariablesSet(expression);
+
         expression = "function add(a, b) { return +a + +b; };" +
                 "function equals(a, b) { return a.toString() == b.toString();};" +
-                expression;
+                nodeTree.toString();
 
         Object retval = null;
 
@@ -61,7 +68,8 @@ public class ELEngineNashorn implements ELEngine {
     public Set<String> getVariablesSet(String expression) {
         expression = expression.replaceAll("__", "");
 
-        Set<String> retval = new TreeSet<>();
+        this.nodeTree = new MyNode();
+        this.variableSet = new TreeSet<>();
 
         Options options = new Options("nashorn");
         ErrorManager errors = new ErrorManager();
@@ -72,18 +80,62 @@ public class ELEngineNashorn implements ELEngine {
 
         List<Statement> statements = parser.parse().getBody().getStatements();
         for (Statement statement : statements) {
-            _dig(((ExpressionStatement)statement).getExpression(), retval);
+            _dig(((ExpressionStatement)statement).getExpression(), this.nodeTree);
         }
 
-        return retval;
+        return this.variableSet;
     }
 
-    private void _dig(Expression expression, Set<String> variables) {
+    private void _dig_old(Expression expression, Set<String> variables) {
         if (expression instanceof BinaryNode) {
-            _dig(((BinaryNode)expression).lhs(), variables);
-            _dig(((BinaryNode)expression).rhs(), variables);
+            _dig_old(((BinaryNode)expression).lhs(), variables);
+            _dig_old(((BinaryNode)expression).rhs(), variables);
         } else if (expression instanceof IdentNode) {
             variables.add(((IdentNode)expression).getName());
+        }
+    }
+
+    private void _dig(Expression expression, MyNode currentNode) {
+        if (expression instanceof BinaryNode) {
+            BinaryNode bExpression = (BinaryNode)expression;
+            Expression lhs = bExpression.lhs();
+            Expression rhs = bExpression.rhs();
+
+            String method = bExpression.toString();
+            String lhsString = lhs.toString();
+            int beg = method.indexOf(lhsString) + lhsString.length();
+            char e;
+            while ((e = method.charAt(beg)) == ')')
+                ++beg;
+            method = method.substring(beg, beg+3).replaceAll(" ", "");
+
+            currentNode.setMethod(method);
+
+            currentNode.setLeftNode(new MyNode());
+            _dig(lhs, currentNode.getLeftNode());
+
+            currentNode.setRightNode(new MyNode());
+            _dig(rhs, currentNode.getRightNode());
+
+        } else if (expression instanceof UnaryNode) {
+            UnaryNode unaryNode = (UnaryNode)expression;
+            currentNode.setMethod(expression.toString().charAt(0) + "");
+            currentNode.setLeftNode(new MyNode());
+
+            _dig(unaryNode.getExpression(), currentNode.getLeftNode());
+        } else  if (expression instanceof IdentNode) {
+            String variableName = ((IdentNode)expression).getName();
+
+            this.variableSet.add(variableName);
+            currentNode.setVariableName(variableName);
+
+        } else if (expression instanceof LiteralNode) {
+            currentNode.setVariableName(((LiteralNode) expression).getValue() + "");
+
+        } else if (expression instanceof JoinPredecessorExpression) {
+            JoinPredecessorExpression joinPredecessorExpression = (JoinPredecessorExpression)expression;
+            _dig(joinPredecessorExpression.getExpression(), currentNode);
+
         }
     }
 
