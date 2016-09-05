@@ -308,7 +308,7 @@ public class ELCTest
         elEngine.setVariable("d", 4.0);
         Double expected = 11.0;
         // a*b+c+d
-        Object result = elEngine.parse("a*b+c+d");
+        Object result = elEngine.parse("__a*__b+__c+__d");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 
@@ -320,7 +320,7 @@ public class ELCTest
         elEngine.setVariable("d", "4.0");
         Double expected = 20.0;
         // a*(3+b+c)+d
-        Object result = elEngine.parse("a*(3+b+c)+d");
+        Object result = elEngine.parse("__a*(3+__b+__c)+__d");
         assertEquals(expected ,Double.parseDouble(result.toString()), delta);
     }
 

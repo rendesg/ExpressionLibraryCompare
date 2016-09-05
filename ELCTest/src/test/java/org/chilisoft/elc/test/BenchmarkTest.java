@@ -89,7 +89,7 @@ public class BenchmarkTest {
         try {
             FileWriter fileWriter = new FileWriter("benchmarktest.txt", true);
             PrintWriter writer = new PrintWriter(fileWriter);
-            writer.println("benchmarkTest_boolean_1_TEST "+(warm-cold)/1000.0);
+            writer.println("benchmak test: "+(warm-cold)/1000.0);
             writer.flush();
             writer.close();
             fileWriter.close();
